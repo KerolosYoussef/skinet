@@ -12,8 +12,8 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class TypesController : ControllerBase
     {
-        private readonly ITypeRepository _repo;
-        public TypesController(ITypeRepository repo)
+        private readonly IGenericRepository<ProductType> _repo;
+        public TypesController(IGenericRepository<ProductType> repo)
         {
             _repo = repo;
             
@@ -21,7 +21,7 @@ namespace API.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductType>> GetType(int id){
-            var type = await _repo.GetProductTypeByIdAsync(id);
+            var type = await _repo.GetByIdAsync(id);
             if(type == null)
                 return NotFound();
 
@@ -30,7 +30,7 @@ namespace API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<ProductType>>> GetTypes(){
-            var types = await _repo.GetProductTypesAsync();
+            var types = await _repo.ListAllAsync();
         
             return Ok(types);
         }

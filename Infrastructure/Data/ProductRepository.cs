@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Data
 {
     
-    public class ProductRepository : IProductRepository
+    public class ProductRepository
     {
         private readonly StoreContext _context;
         public ProductRepository(StoreContext context)
         {
             _context = context;
         }
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
             return await _context.Products.
                             Include(p => p.ProductBrand)
@@ -20,7 +20,7 @@ namespace Infrastructure.Data
                             .SingleOrDefaultAsync(p=>p.Id == id);
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync()
+        public async Task<IReadOnlyList<Product>> ListAllAsync()
         {
             return await _context.Products
                         .Include(p=>p.ProductBrand)

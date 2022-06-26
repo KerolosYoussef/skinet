@@ -17,5 +17,6 @@ namespace API.Helpers
             .ForMember(p => p.ProductBrand, o => o.MapFrom(p => p.ProductBrand.Name))
             .ForMember(p => p.PictureUrl, o => o.MapFrom<ProductResolver>());
         }
+        
     }
 }

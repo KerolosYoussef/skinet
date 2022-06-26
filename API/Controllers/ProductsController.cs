@@ -7,6 +7,7 @@ using Core.Specifications;
 using AutoMapper;
 using API.Dtos;
 using API.Errors;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -23,12 +24,19 @@ namespace API.Controllers
         }  
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(){
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+        public async Task<ActionResult<Pagination<ProductDto>>> GetProducts([FromQuery]ProductSpecParams productParamas){
+
+            var spec = new ProductsWithTypesAndBrandsSpecification(productParamas);
+
+            var countSpec = new ProductsWithFiltersForCountSpecification(productParamas);
+
+            var totalItems = await _repo.CountAsync(countSpec);
 
             var products = await _repo.ListAsync(spec);
+
+            var data = _mapper.Map<IReadOnlyList<Product>,IReadOnlyList<ProductDto>>(products);
             
-            return Ok(_mapper.Map<IReadOnlyList<Product>,IReadOnlyList<ProductDto>>(products));
+            return Ok(new Pagination<ProductDto>(productParamas.PageIndex, productParamas.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]
@@ -42,5 +50,6 @@ namespace API.Controllers
             
             return _mapper.Map<Product,ProductDto>(product);
         }
+        
     }
 }

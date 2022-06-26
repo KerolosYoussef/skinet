@@ -20,6 +20,14 @@ builder.Services.AddApplicationServices();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opt => 
+{
+    opt.AddPolicy("CorsPolicy", policy => 
+    {
+       policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:7127/"); 
+    });
+});
+
 var app = builder.Build();
 
 // migration update at startup
@@ -53,6 +61,8 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

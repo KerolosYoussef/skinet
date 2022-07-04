@@ -1,0 +1,53 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { IBrand } from '../shared/models/brand';
+import { IPagination } from '../shared/models/pagination';
+import { IProduct } from '../shared/models/product';
+import { IType } from '../shared/models/productType';
+import { ShopParams } from '../shared/models/shopParams';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ShopService {
+  baseUrl = 'https://localhost:5283/api/';
+
+  constructor(private http: HttpClient) { }
+
+  getProducts(shopParams : ShopParams){
+    let params = new HttpParams();
+
+    if(shopParams.brandIdSelected !== 0){
+      params = params.set('brandId',shopParams.brandIdSelected.toString());
+    }
+
+    if(shopParams.typeIdSelected !==0){
+      params= params.set('typeId',shopParams.typeIdSelected.toString());
+    }
+
+    params = params.set('sort',shopParams.sortSelected.toString());
+    params = params.set('pageIndex',shopParams.pageNumber?.toString());
+    params = params.set('pageSize',shopParams.pageSize?.toString());
+
+    if(shopParams.search){
+      params = params.set('search',shopParams.search.toString());
+      
+    }
+
+    return this.http.get<IPagination>(this.baseUrl + "products",{observe:'response',params})
+      .pipe(
+        map(response => {
+          return response.body;
+        })
+      );
+  }
+
+  getBrands(){
+    return this.http.get<IBrand[]>(this.baseUrl+'brands');
+  }
+
+  getProductTypes(){
+    return this.http.get<IType[]>(this.baseUrl + 'types');
+  }
+}

@@ -1,0 +1,15 @@
+.cart-container{
+    position: relative;
+}
+.cart-no{
+    position: absolute;
+    min-height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+    font-size: 14px;
+    background:#2222A5;
+    color:white;
+    text-align: center;
+    top:-12px;
+    right: 32px;
+}

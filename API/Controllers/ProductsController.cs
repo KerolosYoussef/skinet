@@ -8,6 +8,7 @@ using AutoMapper;
 using API.Dtos;
 using API.Errors;
 using API.Helpers;
+using Microsoft.AspNetCore.Cors;
 
 namespace API.Controllers
 {
@@ -24,6 +25,7 @@ namespace API.Controllers
         }  
 
         [HttpGet]
+        [EnableCors("CorsPolicy")] 
         public async Task<ActionResult<Pagination<ProductDto>>> GetProducts([FromQuery]ProductSpecParams productParamas){
 
             var spec = new ProductsWithTypesAndBrandsSpecification(productParamas);

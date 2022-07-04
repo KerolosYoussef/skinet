@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ShopComponent } from './shop.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { SharedModule } from '../shared/shared.module';
-import { PagingHeaderComponent } from '../shared/components/paging-header/paging-header.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ShopRoutingModule } from './shop-routing.module';
 
 
 
@@ -11,13 +12,14 @@ import { PagingHeaderComponent } from '../shared/components/paging-header/paging
   declarations: [
     ShopComponent,
     ProductItemComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
+    ShopRoutingModule,
 
   ],
-  exports:[ShopComponent],
   schemas:[
     NO_ERRORS_SCHEMA
   ]

@@ -15,5 +15,25 @@ namespace API.Controllers
         {
             _context = context;
         }
+
+        [HttpGet("servererror")]
+        public IActionResult GetServerError()
+        {
+            var thing = _context.Products.Find(42);
+            var thingToReturn = thing.ToString();
+            return Ok(thingToReturn);
+        }
+
+        [HttpGet("badrequest")]
+        public IActionResult GetBadRequest()
+        {
+            return BadRequest();
+        }
+
+        [HttpGet("badrequest/{id}")]
+        public IActionResult GetBadRequest(int id)
+        {
+            return Ok(id);
+        }
     }
 }

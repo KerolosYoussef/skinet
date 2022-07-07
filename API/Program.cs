@@ -27,7 +27,7 @@ builder.Services.AddCors(opt =>
        policy.WithOrigins("https://localhost:4200"); 
     });
 });
-
+ 
 var app = builder.Build();
 
 // migration update at startup

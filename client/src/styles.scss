@@ -1,1 +1,7 @@
 @import '~ngx-toastr/toastr';
+@import '~bootswatch/dist/sandstone/bootstrap.min.css';
+@import '~ngx-spinner/animations/ball-circus.css';
+
+label.xng-breadcrumb-trail{
+    color:orange;
+}

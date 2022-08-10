@@ -1,6 +1,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [EnableCors("CorsPolicy")] 
         public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
         {
             var updatedBasket = await _repo.UpdateBasketAsync(basket);

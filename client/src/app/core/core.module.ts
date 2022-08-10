@@ -20,7 +20,7 @@ import { BreadcrumbModule } from 'xng-breadcrumb'
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    }),
+    })
   ],
   exports: [NavBarComponent,SectionHeaderComponent]
 })
